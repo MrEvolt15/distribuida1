@@ -30,16 +30,17 @@ public class BookRest {
     @Inject
     ModelMapper mapper;
 
-
+    @Inject
+    @RestClient
     AuthorRestClient client;
 
-    @PostConstruct
-    void init(){
-        var authorsServer = "http://localhost:8070";
-        client = RestClientBuilder.newBuilder()
-                .baseUri(authorsServer)
-                .build(AuthorRestClient.class);
-    }
+//    @PostConstruct
+//    void init(){
+//        var authorsServer = "http://localhost:8070";
+//        client = RestClientBuilder.newBuilder()
+//                .baseUri(authorsServer)
+//                .build(AuthorRestClient.class);
+//    }
 
     @GET
     @Path("/{isbn}")
@@ -49,6 +50,7 @@ public class BookRest {
 
         return bookRepository.findByIdOptional(isbn)
                 .map(book ->{
+                    System.out.println("Buscando authors para el libro isbn= "+isbn);
                     var authors = client.findByBook(isbn);
                     var dto = new BookDTO();
                     mapper.map(book, dto);
@@ -84,7 +86,6 @@ public class BookRest {
         return bookRepository.streamAll()
                 .map(book -> {
                     var dto = new BookDTO();
-
                     mapper.map(book,dto);
                     return dto;
                 })
