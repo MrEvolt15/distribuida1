@@ -4,6 +4,10 @@ import com.prog.distribuida.books.clients.AuthorRestClient;
 import com.prog.distribuida.books.dto.BookDTO;
 import com.prog.distribuida.books.repo.BookRepository;
 import com.prog.distribuida.books.servicios.MapperService;
+import io.smallrye.mutiny.Multi;
+import io.smallrye.stork.Stork;
+import io.smallrye.stork.api.Service;
+import io.smallrye.stork.api.ServiceInstance;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -17,6 +21,8 @@ import org.modelmapper.ModelMapper;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Path("/books")
 @Transactional
@@ -33,6 +39,8 @@ public class BookRest {
     @Inject
     @RestClient
     AuthorRestClient client;
+
+    AtomicInteger index = new AtomicInteger();
 
 //    @PostConstruct
 //    void init(){
@@ -95,5 +103,42 @@ public class BookRest {
                     return book;
                 })
                 .toList();
+    }
+
+    @GET
+    @Path("/test")
+    public Response test(){
+
+
+//        Stork stork = Stork.getInstance();
+//        //----------imprimir lo que esta en el registro
+//        Map<String, Service> services = stork.getServices();
+//        services.entrySet()
+//                .stream()
+//                .forEach(it ->{
+//                    String key = it.getKey();
+//                    Service service = it.getValue();
+//
+//                    System.out.println("--grupo: "+key);
+//
+//
+//                    Multi<ServiceInstance> instancias = service.getInstances()
+//                            .onItem()
+//                            .transformToMulti(items -> Multi.createFrom().iterable(items));
+//                    instancias.subscribe()
+//                            .with(item ->{
+//                                System.out.println("    "+item.getHost()+"  "+item.getPort());
+//                            });
+//                });
+        //---------buscar un servicio, seleccionar instancia, balancear
+//        Service service = stork.getService("authors-api");
+//        List<ServiceInstance> instancias = service.getInstances().await().indefinitely();
+//
+//        int curIndex= index.getAndIncrement() % instancias.size();
+//        var instancia = instancias.get(curIndex);
+//
+//        System.out.println("Invocando authros-api: "+instancia.getHost()+":"+instancia.getPort());
+
+        return Response.ok("ok").build();
     }
 }

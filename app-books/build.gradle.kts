@@ -34,6 +34,13 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
     implementation("org.modelmapper:modelmapper:3.2.6")
+
+    //service discovery
+    implementation("io.quarkus:quarkus-smallrye-stork")
+    //implementation("io.smallrye.stork:stork-service-discovery-static-list:2.6.3")
+    implementation("io.smallrye.stork:stork-service-discovery-consul")
+    implementation("io.smallrye.reactive:smallrye-mutiny-vertx-consul-client")
+
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_21
