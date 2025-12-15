@@ -12,6 +12,7 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.net.InetAddress;
+import java.util.List;
 import java.util.UUID;
 
 @ApplicationScoped
@@ -49,12 +50,21 @@ public class BooksLifecycle {
                     .setInterval("10s")
                     .setDeregisterAfter("10s");
 
+            var tags = List.of(
+                    "traefik.enable=true",
+                    "traefik.http.routers.books.rule=PathPrefix(`/app-books`)",
+                    "traefik.http.middlewares.books-stripprefix.stripPrefix.prefixes=/app-books",
+                    "traefik.http.routers.books.middlewares=books-stripprefix"
+            );
+
+
             ServiceOptions serviceOptions = new ServiceOptions()
                     .setName("app-books")
                     .setId(serviceId)
                     .setAddress(ipAddress)
                     .setPort(appPort)
-                    .setCheckOptions(checkOptions);
+                    .setCheckOptions(checkOptions)
+                    .setTags(tags);
 
             client.registerService(serviceOptions)
                     .onSuccess(it -> {
