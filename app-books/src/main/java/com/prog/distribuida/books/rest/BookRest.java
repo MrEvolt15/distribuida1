@@ -1,6 +1,7 @@
 package com.prog.distribuida.books.rest;
 
 import com.prog.distribuida.books.clients.AuthorRestClient;
+import com.prog.distribuida.books.clients.CustomersRestClient;
 import com.prog.distribuida.books.dto.BookDTO;
 import com.prog.distribuida.books.repo.BookRepository;
 import com.prog.distribuida.books.servicios.MapperService;
@@ -41,6 +42,10 @@ public class BookRest {
     AuthorRestClient client;
 
     AtomicInteger index = new AtomicInteger();
+
+    @Inject
+    @RestClient
+    CustomersRestClient customersRestClient;
 
 //    @PostConstruct
 //    void init(){
@@ -140,5 +145,11 @@ public class BookRest {
 //        System.out.println("Invocando authros-api: "+instancia.getHost()+":"+instancia.getPort());
 
         return Response.ok("ok").build();
+    }
+
+    @GET
+    @Path("/test2")
+    public List<Object> test2(){
+        return customersRestClient.findAll();
     }
 }

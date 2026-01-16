@@ -41,6 +41,9 @@ dependencies {
     implementation("io.smallrye.stork:stork-service-discovery-consul")
     implementation("io.smallrye.reactive:smallrye-mutiny-vertx-consul-client")
 
+    //docker
+    implementation("io.quarkus:quarkus-container-image-docker")
+
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_21

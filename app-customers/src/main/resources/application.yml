@@ -1,0 +1,20 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: app-customers
+  datasource:
+    url: jdbc:postgresql://localhost:5432/books
+    username: postgres
+    password: BioEvolt#4e
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        tags:
+          - framework=springboot-4.0.1
+          - traefik.enable=true
+          - traefik.http.routers.customers.rule=PathPrefix(`/app-customers`)
+          - traefik.http.middlewares.customers-stripprefix.stripPrefix.prefixes=/app-customers
+          - traefik.http.routers.customers.middlewares=customers-stripprefix

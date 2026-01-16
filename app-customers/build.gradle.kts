@@ -1,39 +1,42 @@
 plugins {
-    id("java")
-    id("io.quarkus") version "3.29.3"
+    id ("java")
+    id ("org.springframework.boot") version "4.0.1"
+    id ("io.spring.dependency-management") version "1.1.7"
     id("io.freefair.lombok") version "9.1.0"
 }
 
-group = "com.prog.distribuida"
-version = "1.0-SNAPSHOT"
+group = "com.example"
+version = "0.0.1-SNAPSHOT"
+description = "Demo project for Spring Boot"
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
-
-val quarkusVersion = "3.29.3"
-dependencies {
-    implementation(enforcedPlatform("io.quarkus.platform:quarkus-bom:${quarkusVersion}"))
-
-    //CDI
-    implementation("io.quarkus:quarkus-arc")
-
-    //REST
-    implementation("io.quarkus:quarkus-rest")
-    implementation("io.quarkus:quarkus-rest-jsonb")
-
-    //DB
-    implementation("io.quarkus:quarkus-hibernate-orm")
-    implementation("io.quarkus:quarkus-hibernate-orm-panache")
-    implementation("io.quarkus:quarkus-jdbc-postgresql")
-}
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
 }
 
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-    options.compilerArgs.add("-parameters")
+repositories {
+    mavenCentral()
+}
+
+val springCloudVersion = "2025.1.0"
+
+dependencies {
+    implementation ("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-webmvc")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    runtimeOnly("org.postgresql:postgresql")
+
+}
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+    }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
