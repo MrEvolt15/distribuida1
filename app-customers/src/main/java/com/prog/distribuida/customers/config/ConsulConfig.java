@@ -1,8 +1,6 @@
 package com.prog.distribuida.customers.config;
 
-import org.springframework.cloud.consul.serviceregistry.ConsulRegistrationCustomizer;
-
-public class ConsulCOnfig {
+public class ConsulConfig {
    /* public ConsulRegistrationCustomizer customizer(){
         return registration -> {
             var tags = registration.getService().getTags();

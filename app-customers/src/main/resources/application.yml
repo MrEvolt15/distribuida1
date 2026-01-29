@@ -18,3 +18,14 @@ spring:
           - traefik.http.routers.customers.rule=PathPrefix(`/app-customers`)
           - traefik.http.middlewares.customers-stripprefix.stripPrefix.prefixes=/app-customers
           - traefik.http.routers.customers.middlewares=customers-stripprefix
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+  endpoint:
+    health:
+      show-details: always

@@ -43,6 +43,8 @@ dependencies {
 
     //docker
     implementation("io.quarkus:quarkus-container-image-docker")
+    implementation("io.quarkus:quarkus-smallrye-fault-tolerance")
+    implementation("io.quarkus:quarkus-smallrye-health")
 
 }
 java {

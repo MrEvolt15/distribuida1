@@ -37,6 +37,11 @@ dependencies {
 
     //docker
     implementation("io.quarkus:quarkus-container-image-docker")
+
+    //telemetria
+    implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
+    implementation("io.quarkus:quarkus-rest-jackson")
+    implementation("io.quarkus:quarkus-smallrye-health")
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_21
