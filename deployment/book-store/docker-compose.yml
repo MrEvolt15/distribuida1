@@ -31,7 +31,7 @@ services:
       --providers.consulCatalog.endpoint.address=consul:8500
     ports:
       - 8888:8080
-      - 8080:80
+      - 80:80
     depends_on:
       - consul
 
